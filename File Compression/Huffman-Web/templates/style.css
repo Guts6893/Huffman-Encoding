@@ -1,0 +1,125 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    color: #ffffff;
+    overflow-x: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    border-radius: 20px;
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.4), 0 0 50px rgba(0, 255, 255, 0.2);
+    padding: 40px;
+    width: 100%;
+    max-width: 500px;
+    backdrop-filter: blur(15px);
+    transition: transform 0.3s ease-in-out;
+}
+
+body:hover .card {
+    transform: scale(1.01) rotateX(2deg) rotateY(2deg);
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px cyan, 0 0 30px cyan;
+}
+
+form {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px cyan;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+form:hover {
+    box-shadow: 0 0 25px cyan, 0 0 50px rgba(0, 255, 255, 0.6);
+}
+
+.dropdown {
+    width: 100%;
+    padding: 12px;
+    margin: 15px 0;
+    border-radius: 8px;
+    border: none;
+    background: #121212;
+    color: cyan;
+    font-size: 1rem;
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+.glow-button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin: 15px 0;
+    font-size: 1rem;
+    background: transparent;
+    color: cyan;
+    border: 2px dashed cyan;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    box-shadow: 0 0 10px cyan;
+}
+
+.glow-button:hover {
+    background: cyan;
+    color: #000;
+    box-shadow: 0 0 20px cyan, 0 0 40px cyan;
+}
+
+.glow-button:active {
+    transform: scale(0.97);
+}
+
+button.submit-btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    font-size: 1rem;
+    background: cyan;
+    color: black;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease;
+    box-shadow: 0 0 15px cyan;
+}
+
+button.submit-btn:hover {
+    background: #00f0ff;
+    box-shadow: 0 0 20px cyan, 0 0 40px cyan;
+}
+
+#message {
+    margin-top: 15px;
+    font-size: 1rem;
+    color: #ffffffcc;
+}
+
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
