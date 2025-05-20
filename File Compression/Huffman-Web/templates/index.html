@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Huffman Compression</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="bg"></canvas>
+    <div class="card">
+        <h1>File Compressor</h1>
+        <form id="upload-form" enctype="multipart/form-data">
+            <input type="file" id="file-input" name="file" required hidden>
+            <div id="upload-btn" class="glow-button">📂 Drag & Drop or Click to Upload</div>
+            <p id="file-name" class="file-name">No file selected</p>
+            <select name="action" class="dropdown" required>
+                <option value="compress">Compress</option>
+                <option value="decompress">Decompress</option>
+            </select>
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+        <div id="result">
+            <p id="message"></p>
+            <a id="download-link" href="#" style="display: none;" class="download-link">⬇ Download Output</a>
+        </div>
+    </div>
+    <script>
+        const fileInput = document.getElementById("file-input");
+        const uploadBtn = document.getElementById("upload-btn");
+        const fileName = document.getElementById("file-name");
+        const form = document.getElementById("upload-form");
+        const message = document.getElementById("message");
+        const downloadLink = document.getElementById("download-link");
+
+        uploadBtn.addEventListener("click", () => fileInput.click());
+
+        fileInput.addEventListener("change", () => {
+            fileName.textContent = fileInput.files[0]?.name || "No file selected";
+        });
+
+        uploadBtn.addEventListener("dragover", (e) => {
+            e.preventDefault();
+            uploadBtn.classList.add("dragging");
+        });
+
+        uploadBtn.addEventListener("dragleave", () => {
+            uploadBtn.classList.remove("dragging");
+        });
+
+        uploadBtn.addEventListener("drop", (e) => {
+            e.preventDefault();
+            uploadBtn.classList.remove("dragging");
+            fileInput.files = e.dataTransfer.files;
+            fileName.textContent = fileInput.files[0]?.name || "No file selected";
+        });
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            message.textContent = "Processing...";
+            downloadLink.style.display = "none";
+            try {
+                const response = await fetch("/", {
+                    method: "POST",
+                    body: formData,
+                });
+                const result = await response.json();
+                if (response.ok) {
+                    message.textContent = result.message || "Success!";
+                    downloadLink.href = result.output_file;
+                    downloadLink.style.display = "inline-block";
+                } else {
+                    message.textContent = result.error || "Something went wrong.";
+                }
+            } catch (error) {
+                message.textContent = "Network error.";
+            }
+        });
+    </script>
+</body>
+</html>
